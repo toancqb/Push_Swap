@@ -72,7 +72,7 @@ void rra(t_st *st_a);
 void rrb(t_st *st_b);
 void rrr(t_st *st_a, t_st *st_b);
 
-void ft_process_input(int argc, char **argv, int *input, int *len);
+int *ft_process_input(int argc, char **argv, int *len);
 void ft_init_checker(t_st *a, t_st *b, int *input, int len);
 void ft_command(char *line, t_st *a, t_st *b);
 

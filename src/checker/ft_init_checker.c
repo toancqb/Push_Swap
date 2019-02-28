@@ -15,14 +15,14 @@
 void ft_init_checker(t_st *a, t_st *b, int *input, int len)
 {
   int i;
+  int tmp;
 
-  a = st_init();
-  b = st_init();
   i = 0;
   while (i < len)
   {
     //printf("\n(%d)\n", input[i]);
-    st_push(a, (int)input[i]);
+    tmp = input[i];
+    st_push(a, tmp);
     i++;
   }
   if (st_is_empty(a))

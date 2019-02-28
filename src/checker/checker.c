@@ -12,6 +12,42 @@
 
 #include "../../includes/ft_lib_push_swap.h"
 
+void printf_st(t_st *st)
+{
+  int i;
+
+  //printf("is empty: %d | nb elem: %d\n", st_is_empty(st), st_nb_elem(st));
+  if (st_is_empty(st) == 0)
+  {
+    i = st->top;
+    while (i >= st->bot)
+    {
+      printf("(%d)\n", st->tab[in(i)]);
+      i--;
+    }
+  }
+  printf("\n=--=\n");
+}
+
+void check_st(t_st *a, int len)
+{
+  int i;
+
+  if (st_nb_elem(a) == len)
+  {
+      i = a->top;
+      while (i > a->bot)
+      {
+        if (a->tab[in(i)] >= a->tab[in(i - 1)])
+          ft_ko();
+        i--;
+      }
+      ft_ok();
+  }
+  else
+    ft_ko();
+}
+
 int main(int argc, char *argv[])
 {
   t_st *a;
@@ -23,16 +59,20 @@ int main(int argc, char *argv[])
 
   len = 0;
   input = NULL;
-  ft_process_input(argc, argv, input, &len);
+  a = st_init();
+  b = st_init();
+  input = ft_process_input(argc, argv, &len);
   ft_init_checker(a, b, input, len);
   free(input);
-  while ((size = get_next_line((const int)STDIN_DEFAULT, &line)) > 0)
+  while ((size = get_next_line(STDIN_DEFAULT, &line)) > 0)
   {
     ft_command(line, a, b);
+    printf_st(a);
     free(line);
   }
   if (size == -1)
     ft_error();
-
+  check_st(a, len);
+  
   return (0);
 }

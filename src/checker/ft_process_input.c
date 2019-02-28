@@ -18,11 +18,12 @@
  *
  */
 
-void ft_process_input(int argc, char **argv, int *input, int *len)
+int *ft_process_input(int argc, char **argv, int *len)
 {
   char **tab;
   int i;
   int j;
+  int *input;
 
   *len = 0;
   if (argc >= 2)
@@ -32,15 +33,16 @@ void ft_process_input(int argc, char **argv, int *input, int *len)
       (*len)++;
     input = (int*)malloc(sizeof(int) * (*len));
     i = 0;
-    j = *len;
+    j = *len - 1;
     while (j >= 0 && tab[i])
     {
       input[j] = (int)ft_atoi(tab[i]);
-      //printf("\n(%d)\n", input[j]);
       j--;
       i++;
     }
+    return (input);
   }
   else
     ft_error();
+  return (NULL);
 }

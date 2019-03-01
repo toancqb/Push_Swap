@@ -73,6 +73,7 @@ int main(int argc, char *argv[])
   if (size == -1)
     ft_error();
   check_st(a, len);
-  
+  //free(a);
+  //free(b);
   return (0);
 }

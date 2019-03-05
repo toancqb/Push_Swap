@@ -45,6 +45,10 @@ typedef struct s_env
 {
   t_st *a;
   t_st *b;
+  int len;
+  int *org;
+  int *res;
+  char **ins;
 }               t_env;
 
 int in(int n);
@@ -75,5 +79,7 @@ void rrr(t_st *st_a, t_st *st_b);
 int *ft_process_input(int argc, char **argv, int *len);
 void ft_init_checker(t_st *a, t_st *b, int *input, int len);
 void ft_command(char *line, t_st *a, t_st *b);
+
+void ft_assign_res(t_env *vn);
 
 #endif

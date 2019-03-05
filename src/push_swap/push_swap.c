@@ -10,4 +10,79 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../includes/ft_lib_push_swap.h"
 
+void printf_ps(t_st *st)
+{
+  int i;
+
+  //printf("is empty: %d | nb elem: %d\n", st_is_empty(st), st_nb_elem(st));
+  if (st_is_empty(st) == 0)
+  {
+    i = st->top;
+    while (i >= st->bot)
+    {
+      printf("(%d)\n", st->tab[in(i)]);
+      i--;
+    }
+  }
+  printf("\n=--=\n");
+}
+
+
+int *ft_process_input_push(int argc, char **argv, int *len)
+{
+  char **tab;
+  int i;
+  int j;
+  int *input;
+
+  *len = 0;
+  if (argc >= 2)
+  {
+    tab = ft_strsplit(argv[1], ' ');
+    while (tab[*len] != NULL)
+      (*len)++;
+    input = (int*)malloc(sizeof(int) * (*len));
+    i = 0;
+    while (i < *len && tab[i])
+    {
+      input[i] = (int)ft_atoi(tab[i]);
+      i++;
+    }
+    return (input);
+  }
+  else
+    ft_error();
+  return (NULL);
+}
+
+void ft_init_push_swap(t_env *vn, int len)
+{
+  int i;
+  int tmp;
+
+  i = len - 1;
+  while (i >= 0)
+  {
+    //printf("\n(%d)\n", input[i]);
+    tmp = (vn->org)[i];
+    st_push(vn->a, tmp);
+    i--;
+  }
+  if (st_is_empty(vn->a))
+    ft_ok();
+}
+
+int main(int argc, char *argv[])
+{
+	t_env *vn;
+
+	vn->a = st_init();
+	vn->b = st_init();
+	vn->len = 0;
+	vn->org = ft_process_input_push(argc, argv, &(vn->len));
+	ft_assign_res(vn);
+	ft_init_push_swap(vn, vn->len);
+	//printf_ps(vn->a);
+}

@@ -21,7 +21,23 @@ int in(int n)
 
 void swap(int *a, int *b)
 {
-  *a = *a + *b;
-  *b = *a - *b;
-  *a = *a - *b;
+  int tmp;
+
+  tmp = *a;
+  *a = *b;
+  *b = tmp;
+}
+
+int val_to_pos(t_st *a, int n)
+{
+  int i;
+
+  i = a->bot;
+  while (i <= a->top)
+  {
+    if (n == a->tab[in(i)])
+      return (i - a->bot);
+    i++;
+  }
+  return (-1);
 }

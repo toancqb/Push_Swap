@@ -92,5 +92,10 @@ int main(int argc, char *argv[])
 	ft_assign_res(vn);
 	ft_init_push_swap(vn, vn->len);
 
-  //printf_ps(vn->a);
+  /*printf_ps(vn->a);
+  ra(vn->a);
+  pb(vn->b, vn->a);
+  qsort_interative(vn->a->tab, vn->a->bot, vn->a->top);
+  printf_ps(vn->a);*/
+
 }

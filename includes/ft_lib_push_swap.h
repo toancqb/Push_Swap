@@ -19,11 +19,18 @@
 # define NB_MAX 500
 # define STDIN_DEFAULT 0
 
+typedef struct  s_st_elem
+{
+  int v;
+  int index;
+}               t_st_elem;
+
 typedef struct  s_st
 {
   int top;
   int bot;
   int tab[NB_MAX];
+  t_st_elem n_tab[NB_MAX];
 }               t_st;
 /*
  *  | STACK CIRCLE -> USED FOR THE MAXIMUM 500 or 1000 NUMBERS IN PUSH_SWAP |
@@ -51,8 +58,20 @@ typedef struct s_env
   char *ins;
 }               t_env;
 
+typedef struct  s_move
+{
+  char *ins;
+  int max;
+  int min;
+  int prev_max;
+  int next_max;
+  int in_a;
+  int in_b;
+}               t_move;
+
 int in(int n);
 void swap(int *a, int *b);
+int val_to_pos(t_st *a, int n);
 void ft_error();
 void ft_ok();
 void ft_ko();
@@ -80,5 +99,9 @@ int *ft_process_input(int argc, char **argv, int *len);
 void ft_init_checker(t_st *a, t_st *b, int *input, int len);
 void ft_command(char *line, t_st *a, t_st *b);
 void ft_assign_res(t_env *vn);
+
+int nb_move_a_to_b(t_env *vn, int a_pos);
+void qsort_interative(int arr[], int l, int h);
+
 
 #endif

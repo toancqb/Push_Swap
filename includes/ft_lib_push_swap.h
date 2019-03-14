@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
-# define NB_MAX 500
+# define NB_MAX 1000
 # define STDIN_DEFAULT 0
 
 typedef struct  s_st_elem
@@ -30,7 +30,7 @@ typedef struct  s_st
   int top;
   int bot;
   int tab[NB_MAX];
-  t_st_elem n_tab[NB_MAX];
+  //t_st_elem n_tab[NB_MAX];
 }               t_st;
 /*
  *  | STACK CIRCLE -> USED FOR THE MAXIMUM 500 or 1000 NUMBERS IN PUSH_SWAP |
@@ -58,6 +58,16 @@ typedef struct s_env
   char *ins;
 }               t_env;
 
+typedef struct  s_ps
+{
+  int head;
+  int tail_min;
+  int tail_max;
+  int moves;
+  int next_move;
+  char *ins;
+}               t_ps;
+
 typedef struct  s_move
 {
   char *ins;
@@ -72,6 +82,10 @@ typedef struct  s_move
 int in(int n);
 void swap(int *a, int *b);
 int val_to_pos(t_st *a, int n);
+int val_to_rank(t_env *vn, int n);
+int rank_to_pos_a(t_env *vn, int rank);
+int rank_to_pos_b(t_env *vn, int rank);
+char		*ft_strjoin_customed(char *str, char *buf);
 void ft_error();
 void ft_ok();
 void ft_ko();
@@ -103,5 +117,9 @@ void ft_assign_res(t_env *vn);
 int nb_move_a_to_b(t_env *vn, int a_pos);
 void qsort_interative(int arr[], int l, int h);
 
-
+void push_swap(t_env *vn, t_ps *ps);
+int push_a_to_b(t_env *vn, int pos, t_ps *ps);
+int push_b_to_a(t_env *vn, int pos, t_ps *ps);
+t_ps *ft_init_ps();
+int place_elem(t_st *a, int i);
 #endif

@@ -12,6 +12,12 @@
 
 #include "../../includes/ft_lib_push_swap.h"
 
+/*
+gcc push_swap.c ft_pb.c ft_pa.c ft_init.c process.c ft_select.c
+../tools/*.c ../checker/ft_process_input.c ../checker/ft_display_checker.c
+../../libft/libft.a
+*/
+
 void printf_ps(t_st *st) //
 {
   int i;
@@ -85,7 +91,9 @@ void ft_init_push_swap(t_env *vn, int len)
 int main(int argc, char *argv[])
 {
 	t_env *vn;
+  t_ps *ps;
 
+  ps = ft_init_ps();
   vn = (t_env*)malloc(sizeof(t_env));
   env_init(vn);
 	vn->org = ft_process_input_push(argc, argv, &(vn->len));
@@ -93,9 +101,14 @@ int main(int argc, char *argv[])
 	ft_init_push_swap(vn, vn->len);
 
   /*printf_ps(vn->a);
-  ra(vn->a);
-  pb(vn->b, vn->a);
-  qsort_interative(vn->a->tab, vn->a->bot, vn->a->top);
+  push_a_to_b(vn, 3, ps);
   printf_ps(vn->a);*/
+
+
+
+  //printf_ps(vn->a);
+  push_swap(vn, ps);
+//  printf("\n");
+  //printf_ps(vn->a);
 
 }

@@ -25,7 +25,7 @@ void ra(t_st *st_a)
 
 void rb(t_st *st_b)
 {
-  rb(st_b);
+  ra(st_b);
 }
 
 void rr(t_st *st_a, t_st *st_b)

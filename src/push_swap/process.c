@@ -38,11 +38,13 @@ void ft_assign_res(t_env *vn)
 	int *tmp;
 
 	vn->res = (int*)malloc(sizeof(int) * (vn->len));
+	vn->cb = (int*)malloc(sizeof(int) * (vn->len));
 	tmp = (int*)malloc(sizeof(int) * (vn->len));
 	i = 0;
 	while (i < vn->len)
 	{
 		tmp[i] = vn->org[i];
+		vn->cb[i] = 0;
 		i++;
 	}
 	ft_sort_array(tmp, vn->len);
@@ -60,6 +62,6 @@ void ft_assign_res(t_env *vn)
 			j++;
 		}
 		i++;
-	}  
+	}
   free(tmp);
 }

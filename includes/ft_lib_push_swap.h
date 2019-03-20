@@ -54,38 +54,33 @@ typedef struct s_env
   t_st *b;
   int *org;
   int *res;
+  int *cb;
   int len;
   char *ins;
 }               t_env;
 
 typedef struct  s_ps
 {
+  int curr;
   int head;
   int tail_min;
   int tail_max;
   int moves;
   int next_move;
   char *ins;
+  char *ins_a;
+  char *ins_b;
 }               t_ps;
-
-typedef struct  s_move
-{
-  char *ins;
-  int max;
-  int min;
-  int prev_max;
-  int next_max;
-  int in_a;
-  int in_b;
-}               t_move;
 
 int in(int n);
 void swap(int *a, int *b);
+void ft_checking(t_env *vn, int rank);
 int val_to_pos(t_st *a, int n);
 int val_to_rank(t_env *vn, int n);
 int rank_to_pos_a(t_env *vn, int rank);
 int rank_to_pos_b(t_env *vn, int rank);
 char		*ft_strjoin_customed(char *str, char *buf);
+void ft_align_a(t_env *vn, t_ps *ps);
 void ft_error();
 void ft_ok();
 void ft_ko();
@@ -117,9 +112,17 @@ void ft_assign_res(t_env *vn);
 int nb_move_a_to_b(t_env *vn, int a_pos);
 void qsort_interative(int arr[], int l, int h);
 
+int calc_elem_to_suit_pos(t_env *vn, int rank, t_ps *ps);
+int calc_elem_to_suit_pos_from_b(t_env *vn, int rank, t_ps *ps);
+void put_elem_to_suit_pos(t_env *vn, int rank, t_ps *ps);
+void ft_select_to_a(t_env *vn, t_ps *ps);
 void push_swap(t_env *vn, t_ps *ps);
+void push_swap2(t_env *vn, t_ps *ps);
 int push_a_to_b(t_env *vn, int pos, t_ps *ps);
 int push_b_to_a(t_env *vn, int pos, t_ps *ps);
 t_ps *ft_init_ps();
 int place_elem(t_st *a, int i);
+void ft_apply(t_env *vn, t_ps *ps);
+void ft_common(t_ps *ps);
+
 #endif

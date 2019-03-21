@@ -95,12 +95,13 @@ void ft_select_to_a(t_env *vn, t_ps *ps)
       rank++;
       while (rank_to_pos_a(vn, rank) == -1)
         rank++;
-      pos_to_top(vn, rank_to_pos_a(vn, rank), ps);
+      if (rank_to_pos_a(vn, rank) != st_nb_elem(vn->a) - 1)
+        pos_to_top(vn, rank_to_pos_a(vn, rank), ps);
     }
     push_b_to_a(vn, ps->curr, ps);
-    ft_common(ps);
+    /*ft_common(ps);
     free(ps->ins_a); ps->ins_a = ft_strnew(1);
-    free(ps->ins_b); ps->ins_b = ft_strnew(1);
+    free(ps->ins_b); ps->ins_b = ft_strnew(1);*/
   }
 
 

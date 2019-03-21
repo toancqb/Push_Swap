@@ -67,12 +67,17 @@ int main(int argc, char *argv[])
   while ((size = get_next_line(STDIN_DEFAULT, &line)) > 0)
   {
     ft_command(line, a, b);
-    printf_st(a);
+    //printf_st(a);
     free(line);
   }
   if (size == -1)
+  {
+    ft_putstr("zz\n");
     ft_error();
+  }
+  printf_st(a);
   check_st(a, len);
-  
+  free(a);
+  free(b);
   return (0);
 }

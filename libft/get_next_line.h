@@ -17,7 +17,14 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 # include "libft.h"
-# define BUFF_SIZE 42
+# define BUFF_SIZE 2048
+
+typedef struct		s_file
+{
+	int				fd;
+	char			*str;
+	struct s_file	*next;
+}					t_file;
 
 int		get_next_line(const int fd, char **line);
 

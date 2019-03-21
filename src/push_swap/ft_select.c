@@ -4,7 +4,7 @@ void upper(t_env *vn, int pos, int len, t_ps *ps)
 {
   while (pos < len - 1)
   {
-    ps->ins_a = ft_strjoin_customed(ps->ins_a, "ra\n");
+    ps->ins = ft_strjoin_customed(ps->ins, "ra\n");
     ps->next_move++;
     ra(vn->a);
     pos++;
@@ -15,7 +15,7 @@ void lower(t_env *vn, int pos, int len, t_ps *ps)
 {
   while (pos >= 0)
   {
-    ps->ins_a = ft_strjoin_customed(ps->ins_a, "rra\n");
+    ps->ins = ft_strjoin_customed(ps->ins, "rra\n");
     ps->next_move++;
     rra(vn->a);
     pos--;
@@ -36,7 +36,7 @@ int pos_to_top(t_env *vn, int pos, t_ps *ps)
   else if(place == 3)
   {
     ps->next_move++;
-    ps->ins_a = ft_strjoin_customed(ps->ins_a, "rra\n");
+    ps->ins = ft_strjoin_customed(ps->ins, "rra\n");
     rra(vn->a);
   }
   else

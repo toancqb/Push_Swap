@@ -138,63 +138,6 @@ int ft_is_done(t_env *vn, t_ps *ps)
   return (1);
 }
 
-void ft_ending(t_env *vn, t_ps *ps)
-{
-  int len;
-  int rank;
-  int pos_upper;
-  int pos_lower;
-  int pos;
-
-  rank = 0;
-  len = st_nb_elem(vn->a);
-  while (rank < len)
-  {
-    pos_upper = rank_to_pos_a(vn, rank + 1);
-    pos_lower = rank_to_pos_a(vn, rank - 1);
-    pos = rank_to_pos_a(vn, rank);
-    if ((rank == 0 && pos != pos_upper + 1)
-    || (rank == len - 1 && pos != pos_lower - 1))
-      put_elem_to_suit_pos(vn, rank, ps);
-    if (pos != pos_upper + 1 && pos != pos_lower - 1)
-      put_elem_to_suit_pos(vn, rank, ps);
-    rank++;
-  }
-  ft_align_a(vn, ps);
-}
-
-/*int ft_is_done2(t_env *vn, t_ps *ps)
-{
-  int rank;
-
-  if (val_to_rank(vn, vn->a->tab[in(vn->bot)]) == vn->len - 1)
-  {
-
-  }
-  if (val_to_rank(vn, vn->a->tab[in(vn->top)]) == 0)
-  {
-
-  }
-  return (-1);
-}*/
-
-void ft_ending2(t_env *vn, t_ps *ps)
-{
-  int len;
-  int rank;
-  int pos;
-
-  rank = 0;
-  len = st_nb_elem(vn->a);
-  while (rank < len)
-  {
-    pos = rank_to_pos_a(vn, rank);
-    if (rank != pos)
-      put_elem_to_suit_pos(vn, rank, ps);
-    rank++;
-  }
-}
-
 void ft_apply(t_env *vn, t_ps *ps)
 {
   char **tab;
@@ -288,21 +231,11 @@ void ft_common(t_ps *ps)
 
 void push_swap2(t_env *vn, t_ps *ps)
 {
-  //while (!ft_is_done(vn, ps))
-//  {
     ft_select_to_b(vn, ps);
     ft_a_to_b(vn, ps);
-  //  ft_process_a(vn, ps); //
-  //  ft_process_b(vn, ps); //
     ft_select_to_a(vn, ps);
 
-
-//  }
-    //ft_ending(vn, ps);
     ft_align_a(vn, ps);
 
-
-//      ft_ending2(vn, ps);
-
-  printf("%s", ps->ins);
+    printf("%s", ps->ins);
 }

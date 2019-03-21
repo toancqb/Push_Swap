@@ -14,28 +14,30 @@
 
 void ft_command(char *line, t_st *a, t_st *b)
 {
+  ft_putstr(line); ft_putchar('\n');
+  
   if (!ft_strcmp(line, "sa"))
     sa(a);
-  else if (!ft_strcmp(line, "sb"))
+  if (!ft_strcmp(line, "sb"))
     sb(b);
-  else if (!ft_strcmp(line, "ss"))
+  if (!ft_strcmp(line, "ss"))
     ss(a, b);
-  else if (!ft_strcmp(line, "pa"))
+  if (!ft_strcmp(line, "pa"))
     pa(a, b);
-  else if (!ft_strcmp(line, "pb"))
-    pa(b, a);
-  else if (!ft_strcmp(line, "ra"))
+  if (!ft_strcmp(line, "pb"))
+    pb(b, a);
+  if (!ft_strcmp(line, "ra"))
     ra(a);
-  else if (!ft_strcmp(line, "rb"))
+  if (!ft_strcmp(line, "rb"))
     rb(b);
-  else if (!ft_strcmp(line, "rr"))
+  if (!ft_strcmp(line, "rr"))
     rr(a, b);
-  else if (!ft_strcmp(line, "rra"))
+  if (!ft_strcmp(line, "rra"))
     rra(a);
-  else if (!ft_strcmp(line, "rrb"))
+  if (!ft_strcmp(line, "rrb"))
     rrb(b);
-  else if (!ft_strcmp(line, "rrr"))
+  if (!ft_strcmp(line, "rrr"))
     rrr(a, b);
-  else
-    ft_error();
+  //else
+  //  ft_error();
 }

@@ -21,9 +21,10 @@ int ft_calc_head(t_env *vn, int rank, t_ps *ps)
   pos = tmp - 1;
   while (pos >= 0)
   {
-    if (vn->a->tab[in(bot + pos)] > vn->a->tab[in(bot + pos + 1)])
+    if (vn->a->tab[in(bot + pos)] > vn->a->tab[in(bot + tmp)])
     {
       count++;
+      tmp = pos;
     }
     pos--;
   }
@@ -42,6 +43,7 @@ void ft_select_to_b(t_env *vn, t_ps *ps)
   bot = vn->a->bot;
   ps->head = i;
   ps->moves = ft_calc_head(vn, ps->head, ps);
+  i++;
   while (i < vn->len)
   {
     tmp = ft_calc_head(vn, i, ps);
@@ -53,7 +55,6 @@ void ft_select_to_b(t_env *vn, t_ps *ps)
     i++;
   }
   //ft_checking(vn, rank_to_pos_a(vn, ps->head));
-
   pos = rank_to_pos_a(vn, ps->head);
   ft_checking_pos(vn, pos);
   tmp = pos;
@@ -234,7 +235,6 @@ void push_swap2(t_env *vn, t_ps *ps)
     ft_select_to_b(vn, ps);
     ft_a_to_b(vn, ps);
     ft_select_to_a(vn, ps);
-
     ft_align_a(vn, ps);
 
     printf("%s", ps->ins);

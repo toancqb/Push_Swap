@@ -34,7 +34,11 @@ int calc_pos_to_top_a(t_env *vn, int rank, t_ps *ps)
 
   len = st_nb_elem(vn->a);
   while (rank_to_pos_a(vn, rank) == -1)
+  {
+    if (rank == vn->len - 1)
+      break ;
     rank++;
+  }
   pos = rank_to_pos_a(vn, rank);
   place = place_elem(vn->a, pos);
   if (place == 0)
@@ -53,18 +57,23 @@ int calc_elem_to_suit_pos_from_b(t_env *vn, int pos, t_ps *ps)
   int place;
   int len;
   int rank;
+  int pos_to_top;
 
   rank = val_to_rank(vn, vn->b->tab[in(vn->b->bot + pos)]);
   len = st_nb_elem(vn->b);
   place = place_elem(vn->b, pos);
-  if (place == 0)
-    return (1 + calc_pos_to_top_a(vn, rank + 1, ps));
-  else if (place == 1)
-    return (len - pos + calc_pos_to_top_a(vn, rank + 1, ps));
-  else if (place == 3)
-    return (2 + calc_pos_to_top_a(vn, rank + 1, ps));
+  if (rank + 1 == vn->len - 1)
+    pos_to_top = calc_pos_to_top_a(vn, 0, ps);
   else
-    return (pos + 1 + calc_pos_to_top_a(vn, rank + 1, ps));
+    pos_to_top = calc_pos_to_top_a(vn, rank + 1, ps);
+  if (place == 0)
+    return (1 + pos_to_top);
+  else if (place == 1)
+    return (len - pos + pos_to_top);
+  else if (place == 3)
+    return (2 + pos_to_top);
+  else
+    return (pos + 1 + pos_to_top);
 }
 
 void ft_select_to_a(t_env *vn, t_ps *ps)
@@ -73,6 +82,7 @@ void ft_select_to_a(t_env *vn, t_ps *ps)
   int rank;
   int len;
   int ins_min;
+  int tmp;
 
   while (st_nb_elem(vn->b) != 0)
   {
@@ -83,9 +93,12 @@ void ft_select_to_a(t_env *vn, t_ps *ps)
     pos--;
     while (pos >= 0)
     {
-      if (ins_min > calc_elem_to_suit_pos_from_b(vn, pos, ps))
+    //  ft_putstr("F");
+      tmp = calc_elem_to_suit_pos_from_b(vn, pos, ps);
+      if (ins_min > tmp)
       {
         ps->curr = pos;
+        ins_min = tmp;
       }
       pos--;
     }
@@ -94,9 +107,18 @@ void ft_select_to_a(t_env *vn, t_ps *ps)
     {
       rank++;
       while (rank_to_pos_a(vn, rank) == -1)
+      {
         rank++;
+      }
       if (rank_to_pos_a(vn, rank) != st_nb_elem(vn->a) - 1)
         pos_to_top(vn, rank_to_pos_a(vn, rank), ps);
+    }
+    else if (rank == vn->len - 1)
+    {
+      rank = 0;
+      while (rank_to_pos_a(vn, rank) == -1)
+        rank++;
+      pos_to_top(vn, rank_to_pos_a(vn, rank), ps);
     }
     push_b_to_a(vn, ps->curr, ps);
     /*ft_common(ps);

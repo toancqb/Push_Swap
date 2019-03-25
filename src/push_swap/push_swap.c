@@ -109,6 +109,6 @@ int main(int argc, char *argv[])
   //printf_ps(vn->a);
   push_swap2(vn, ps);
 //  printf("\n");
-  printf_ps(vn->a); 
+//  printf_ps(vn->a);
 //  printf_ps(vn->b);
 }

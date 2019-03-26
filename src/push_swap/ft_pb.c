@@ -30,6 +30,7 @@ void pos_upper(t_env *vn, int pos, int len, t_ps *ps)
 
 void pos_lower(t_env *vn, int pos, int len, t_ps *ps)
 {
+  (void)len;
   while (pos >= 0)
   {
     ps->ins = ft_strjoin_customed(ps->ins, "rra\n");

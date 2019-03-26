@@ -15,6 +15,7 @@ int ft_calc_head(t_env *vn, int rank, t_ps *ps)
   int count;
   int tmp;
 
+  (void)ps;
   count = 1;
   bot = vn->a->bot;
   tmp = rank_to_pos_a(vn, rank);
@@ -34,7 +35,6 @@ int ft_calc_head(t_env *vn, int rank, t_ps *ps)
 void ft_select_to_b(t_env *vn, t_ps *ps)
 {
   int i;
-  int j;
   int tmp;
   int pos;
   int bot;
@@ -54,7 +54,6 @@ void ft_select_to_b(t_env *vn, t_ps *ps)
      }
     i++;
   }
-  //ft_checking(vn, rank_to_pos_a(vn, ps->head));
   pos = rank_to_pos_a(vn, ps->head);
   ft_checking_pos(vn, pos);
   tmp = pos;
@@ -117,26 +116,6 @@ void ft_a_to_b(t_env *vn, t_ps *ps)
       ra(vn->a);
     }
   }
-}
-
-int ft_is_done(t_env *vn, t_ps *ps)
-{
-  int len;
-  int rank;
-  int pos_upper;
-  int pos_lower;
-  int pos;
-
-  rank = 0;
-  len = st_nb_elem(vn->a);
-  while (rank < len)
-  {
-    pos = rank_to_pos_a(vn, rank);
-    if (rank != pos)
-      return (0);
-    rank++;
-  }
-  return (1);
 }
 
 void ft_apply(t_env *vn, t_ps *ps)
@@ -230,7 +209,7 @@ void ft_common(t_ps *ps)
   }*/
 }
 
-void push_swap2(t_env *vn, t_ps *ps)
+void push_swap(t_env *vn, t_ps *ps)
 {
     ft_select_to_b(vn, ps);
     ft_a_to_b(vn, ps);

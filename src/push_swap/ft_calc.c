@@ -1,6 +1,6 @@
 #include "../../includes/ft_lib_push_swap.h"
 
-int calc_upper(t_env *vn, int pos, int len, t_ps *ps)
+static int calc_upper(int pos, int len)
 {
   int count;
 
@@ -13,10 +13,11 @@ int calc_upper(t_env *vn, int pos, int len, t_ps *ps)
   return (count);
 }
 
-int calc_lower(t_env *vn, int pos, int len, t_ps *ps)
+static int calc_lower(int pos, int len)
 {
   int count;
 
+  (void)len;
   count = 0;
   while (pos >= 0)
   {
@@ -26,7 +27,7 @@ int calc_lower(t_env *vn, int pos, int len, t_ps *ps)
   return (count);
 }
 
-int calc_pos_to_top(t_env *vn, int rank, t_ps *ps)
+int calc_pos_to_top(t_env *vn, int rank)
 {
   int place;
   int pos;
@@ -38,15 +39,15 @@ int calc_pos_to_top(t_env *vn, int rank, t_ps *ps)
   if (place == 0)
     return (0);
   else if (place == 1)
-    return (calc_upper(vn, pos, len, ps));
+    return (calc_upper(pos, len));
   else if (place == 3)
     return (1);
   else
-    return (calc_lower(vn, pos, len, ps));
+    return (calc_lower(pos, len));
 
 }
 
-int calc_elem_to_suit_pos(t_env *vn, int rank, t_ps *ps)
+int calc_elem_to_suit_pos(t_env *vn, int rank)
 {
   int place;
   int pos;
@@ -56,11 +57,11 @@ int calc_elem_to_suit_pos(t_env *vn, int rank, t_ps *ps)
   pos = rank_to_pos_a(vn, rank);
   place = place_elem(vn->a, pos);
   if (place == 0)
-    return (1 + calc_pos_to_top(vn, rank + 1, ps));
+    return (1 + calc_pos_to_top(vn, rank + 1));
   else if (place == 1)
-    return (len - pos + calc_pos_to_top(vn, rank + 1, ps));
+    return (len - pos + calc_pos_to_top(vn, rank + 1));
   else if (place == 3)
     return (pos + 1);
   else
-    return (pos + 1 + calc_pos_to_top(vn, rank + 1, ps));
+    return (pos + 1 + calc_pos_to_top(vn, rank + 1));
 }

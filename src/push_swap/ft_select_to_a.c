@@ -1,6 +1,6 @@
 #include "../../includes/ft_lib_push_swap.h"
 
-int calc_upper_b(t_env *vn, int pos, int len, t_ps *ps)
+int calc_upper_b(int pos, int len)
 {
   int count;
 
@@ -13,10 +13,11 @@ int calc_upper_b(t_env *vn, int pos, int len, t_ps *ps)
   return (count);
 }
 
-int calc_lower_b(t_env *vn, int pos, int len, t_ps *ps)
+int calc_lower_b(int pos, int len)
 {
   int count;
 
+  (void)len;
   count = 0;
   while (pos >= 0)
   {
@@ -26,7 +27,7 @@ int calc_lower_b(t_env *vn, int pos, int len, t_ps *ps)
   return (count);
 }
 
-int calc_pos_to_top_a(t_env *vn, int rank, t_ps *ps)
+int calc_pos_to_top_a(t_env *vn, int rank)
 {
   int place;
   int len;
@@ -44,15 +45,15 @@ int calc_pos_to_top_a(t_env *vn, int rank, t_ps *ps)
   if (place == 0)
     return (0);
   else if (place == 1)
-    return (calc_upper_b(vn, pos, len, ps));
+    return (calc_upper_b(pos, len));
   else if (place == 3)
     return (1);
   else
-    return (calc_lower_b(vn, pos, len, ps));
+    return (calc_lower_b(pos, len));
 
 }
 
-int calc_elem_to_suit_pos_from_b(t_env *vn, int pos, t_ps *ps)
+int calc_elem_to_suit_pos_from_b(t_env *vn, int pos)
 {
   int place;
   int len;
@@ -63,9 +64,9 @@ int calc_elem_to_suit_pos_from_b(t_env *vn, int pos, t_ps *ps)
   len = st_nb_elem(vn->b);
   place = place_elem(vn->b, pos);
   if (rank + 1 == vn->len - 1)
-    pos_to_top = calc_pos_to_top_a(vn, 0, ps);
+    pos_to_top = calc_pos_to_top_a(vn, 0);
   else
-    pos_to_top = calc_pos_to_top_a(vn, rank + 1, ps);
+    pos_to_top = calc_pos_to_top_a(vn, rank + 1);
   if (place == 0)
     return (1 + pos_to_top);
   else if (place == 1)
@@ -88,13 +89,12 @@ void ft_select_to_a(t_env *vn, t_ps *ps)
   {
     len = st_nb_elem(vn->b);
     pos = len - 1;
-    ins_min = calc_elem_to_suit_pos_from_b(vn, pos, ps);
+    ins_min = calc_elem_to_suit_pos_from_b(vn, pos);
     ps->curr = pos;
     pos--;
     while (pos >= 0)
     {
-    //  ft_putstr("F");
-      tmp = calc_elem_to_suit_pos_from_b(vn, pos, ps);
+      tmp = calc_elem_to_suit_pos_from_b(vn, pos);
       if (ins_min > tmp)
       {
         ps->curr = pos;
@@ -125,7 +125,5 @@ void ft_select_to_a(t_env *vn, t_ps *ps)
     free(ps->ins_a); ps->ins_a = ft_strnew(1);
     free(ps->ins_b); ps->ins_b = ft_strnew(1);*/
   }
-
-
   //ft_apply(vn, ps);
 }

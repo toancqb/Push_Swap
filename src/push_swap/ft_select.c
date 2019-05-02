@@ -1,93 +1,80 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_select.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qtran <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/18 12:26:08 by qtran             #+#    #+#             */
+/*   Updated: 2019/04/28 18:00:31 by qtran            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/ft_lib_push_swap.h"
 
-void upper(t_env *vn, int pos, int len, t_ps *ps)
+int		maxi(int a, int b)
 {
-  while (pos < len - 1)
-  {
-    ps->ins = ft_strjoin_customed(ps->ins, "ra\n");
-    ps->next_move++;
-    ra(vn->a);
-    pos++;
-  }
+	return ((a >= b) ? a : b);
 }
 
-void lower(t_env *vn, int pos, int len, t_ps *ps)
+void	ft_assign_track(int *select, int *p, int max, int len)
 {
-  (void)len;
-  while (pos >= 0)
-  {
-    ps->ins = ft_strjoin_customed(ps->ins, "rra\n");
-    ps->next_move++;
-    rra(vn->a);
-    pos--;
-  }
+	int i;
+
+	i = 0;
+	while (i < len)
+	{
+		select[i] = 0;
+		i++;
+	}
+	i = max;
+	while (1)
+	{
+		select[i] = 1;
+		i = p[i];
+		if (i == -1)
+			break ;
+	}
 }
 
-int pos_to_top(t_env *vn, int pos, t_ps *ps)
+void	ft_init_best_p(int *best, int *p, int len)
 {
-  int place;
-  int len;
+	int i;
 
-  len = st_nb_elem(vn->a);
-  place = place_elem(vn->a, pos);
-  if (place == 1)
-  {
-    upper(vn, pos, len, ps);
-  }
-  else if(place == 3)
-  {
-    ps->next_move++;
-    ps->ins = ft_strjoin_customed(ps->ins, "rra\n");
-    rra(vn->a);
-  }
-  else
-  {
-    lower(vn, pos, len, ps);
-  }
-  return (ps->next_move);
+	i = 0;
+	while (i < len)
+	{
+		best[i] = 1;
+		p[i] = -1;
+		i++;
+	}
 }
 
-void ft_checking(t_env *vn, int rank)
+void	ft_select(int *select, int len)
 {
-  int i;
+	int i[3];
+	int *p[2];
 
-  i = 0;
-  while (i <= vn->len - 1)
-  {
-    if (vn->res[i] == rank)
-      break ;
-    i++;
-  }
-  vn->cb[i] = 1;
-}
-
-void ft_align_up_down(t_env *vn, int times, t_ps *ps, int cmd)
-{
-  while(times >= 0)
-  {
-    if (cmd)
-    {
-      ps->ins = ft_strjoin_customed(ps->ins, "rra\n");
-      rra(vn->a);
-    }
-    else
-    {
-      ps->ins = ft_strjoin_customed(ps->ins, "ra\n");
-      ra(vn->a);
-    }
-    times--;
-  }
-}
-
-void ft_align_a(t_env *vn, t_ps *ps)
-{
-  int pos_min;
-  int pos_max;
-
-  pos_min = rank_to_pos_a(vn, 0);
-  pos_max = rank_to_pos_a(vn, vn->len - 1);
-  if (pos_min + 1 < vn->len - 1 - pos_max)
-    ft_align_up_down(vn, pos_min, ps, 1);
-  else
-    ft_align_up_down(vn, vn->len - 1 - pos_max, ps, 0);
+	i[2] = 0;
+	p[0] = (int*)malloc(sizeof(int) * len);
+	p[1] = (int*)malloc(sizeof(int) * len);
+	ft_init_best_p(p[0], p[1], len);
+	while (i[0] < len)
+	{
+		i[1] = 0;
+		while (i[1] < i[0])
+		{
+			if (select[i[0]] < select[i[1]] && p[0][i[0]] < p[0][i[1]] + 1)
+			{
+				p[0][i[0]] = p[0][i[1]] + 1;
+				p[1][i[0]] = i[1];
+				if (p[0][i[2]] < p[0][i[0]])
+					i[2] = i[0];
+			}
+			i[1]++;
+		}
+		i[0]++;
+	}
+	ft_assign_track(select, p[1], i[2], len);
+	ft_free_2intarr(&p[0], &p[1]);
 }

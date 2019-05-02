@@ -5,79 +5,101 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qtran <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/28 14:41:11 by qtran             #+#    #+#             */
-/*   Updated: 2019/02/28 14:41:33 by qtran            ###   ########.fr       */
+/*   Created: 2019/04/18 12:26:27 by qtran             #+#    #+#             */
+/*   Updated: 2019/04/28 18:06:53 by qtran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_lib_push_swap.h"
+#include "../stack/st_lib_stack.h"
 
-void printf_st(t_st *st)
+void	ft_init_checker(t_st *a, long *input, int len)
 {
-  int i;
+	int i;
+	int tmp;
 
-  //printf("is empty: %d | nb elem: %d\n", st_is_empty(st), st_nb_elem(st));
-  if (st_is_empty(st) == 0)
-  {
-    i = st->top;
-    while (i >= st->bot)
-    {
-      printf("(%d)\n", st->tab[in(i)]);
-      i--;
-    }
-  }
-  printf("\n=--=\n");
+	i = 0;
+	while (i < len)
+	{
+		tmp = (int)input[i];
+		st_push(&a, st_init_elem(tmp, 0));
+		i++;
+	}
+	if (st_nb_elem(a))
+		return ;
 }
 
-void check_st(t_st *a, int len)
+void	ft_command(char *line, t_st **a, t_st **b)
 {
-  int i;
-
-  if (st_nb_elem(a) == len)
-  {
-      i = a->top;
-      while (i > a->bot)
-      {
-        if (a->tab[in(i)] >= a->tab[in(i - 1)])
-          ft_ko();
-        i--;
-      }
-      ft_ok();
-  }
-  else
-    ft_ko();
+	if (ft_strequ(line, "sa"))
+		sa(*a);
+	else if (ft_strequ(line, "sb"))
+		sb(*b);
+	else if (ft_strequ(line, "ss"))
+		ss(*a, *b);
+	else if (ft_strequ(line, "pa"))
+		pa(a, b);
+	else if (ft_strequ(line, "pb"))
+		pb(a, b);
+	else if (ft_strequ(line, "ra"))
+		ra(a);
+	else if (ft_strequ(line, "rb"))
+		rb(b);
+	else if (ft_strequ(line, "rr"))
+		rr(a, b);
+	else if (ft_strequ(line, "rra"))
+		rra(a);
+	else if (ft_strequ(line, "rrb"))
+		rrb(b);
+	else if (ft_strequ(line, "rrr"))
+		rrr(a, b);
+	else
+		ft_error();
 }
 
-int main(int argc, char *argv[])
+void	check_st(t_st *a, int len)
 {
-  t_st *a;
-  t_st *b;
-  char *line;
-  int *input;
-  ssize_t size;
-  int len;
+	t_elem *tmp;
 
-  len = 0;
-  input = NULL;
-  a = st_init();
-  b = st_init();
-  input = ft_process_input(argc, argv, &len);
-  ft_init_checker(a, b, input, len);
-  free(input);
-  while ((size = get_next_line(STDIN_DEFAULT, &line)) > 0)
-  {
-    ft_command(line, a, b);
-    //printf_st(a);
-    free(line);
-  }
-  if (size == -1)
-  {
-    ft_putstr("zz\n");
-    ft_error();
-  }
-  printf_st(a);
-  check_st(a, len);
-  free(a);
-  free(b);
-  return (0);
+	if (st_nb_elem(a) == len)
+	{
+		tmp = a->st_l;
+		while (tmp->prev != NULL)
+		{
+			if (tmp->v > tmp->prev->v)
+				ft_ko();
+			tmp = tmp->prev;
+		}
+		ft_ok();
+	}
+	else
+		ft_ko();
+}
+
+int		main(int argc, char *argv[])
+{
+	t_st		*a[2];
+	char		*line;
+	long		*input;
+	int			len;
+	ssize_t		size;
+
+	len = 0;
+	input = NULL;
+	a[0] = st_init_stack();
+	a[1] = st_init_stack();
+	input = ft_process_input(argc, argv, &len);
+	ft_init_checker(a[0], input, len);
+	while ((size = get_next_line(STDIN_DEFAULT, &line)) > 0)
+	{
+		ft_command(line, &a[0], &a[1]);
+		free(line);
+	}
+	if (size == -1)
+		ft_error();
+	check_st(a[0], len);
+	free(input);
+	st_free_stack(&a[0]);
+	st_free_stack(&a[1]);
+	return (0);
 }

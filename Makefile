@@ -80,23 +80,32 @@ $(NAME_CH): $(OBJ_ST) $(OBJ_OP) $(OBJ_CH)
 
 $(DIR_OBJS)/%.o: $(DIR_PS)/%.c
 	@$(CC) $(FLAGS) -o $@ -c $<
+	@echo "File " $< " recompiled"
 
 $(DIR_OBJS)/%.o: $(DIR_CH)/%.c
-	@$(CC) $(FLAGS) -o $@ -c $< 
+	@$(CC) $(FLAGS) -o $@ -c $<
+	@echo "File " $< " recompiled"
 
 $(DIR_OBJS)/%.o: $(DIR_OP)/%.c
 	@$(CC) $(FLAGS) -o $@ -c $<
+	@echo "File " $< " recompiled"
 
 $(DIR_OBJS)/%.o: $(DIR_ST)/%.c
 	@$(CC) $(FLAGS) -o $@ -c $<
+	@echo "File " $< " recompiled"
 
 clean:
 	@rm -f $(OBJ_CH) $(OBJ_PS) $(OBJ_OP) $(OBJ_ST)
 	@make -C $(LIBFT) clean
+	@echo "\033[31mObject Files of checker is DELETED\033[0m"
+	@echo "\033[31mObject Files of push_swap is DELETED\033[0m"
 
 fclean: clean
 	@rm -f $(NAME_CH) $(NAME_PS)
 	@make -C $(LIBFT) fclean
+	@echo "\033[31mLibft.a DELETED\033[0m"
+	@echo "\033[31mchecker DELETED\033[0m"
+	@echo "\033[31mpush_swap DELETED\033[0m"
 
 re: fclean all
 

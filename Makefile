@@ -79,10 +79,10 @@ $(NAME_CH): $(OBJ_ST) $(OBJ_OP) $(OBJ_CH)
 	@$(CC) $(FLAGS) -o $(NAME_CH) $(OBJ_CH) $(OBJ_OP) $(OBJ_ST) $(LIBFT)/libft.a
 
 $(DIR_OBJS)/%.o: $(DIR_PS)/%.c
-	@$(CC) $(FLAGS) -o $@ -c $< $(OBJ_ST) $(OBJ_OP)
+	@$(CC) $(FLAGS) -o $@ -c $<
 
 $(DIR_OBJS)/%.o: $(DIR_CH)/%.c
-	@$(CC) $(FLAGS) -o $@ -c $< $(OBJ_ST) $(OBJ_OP)
+	@$(CC) $(FLAGS) -o $@ -c $< 
 
 $(DIR_OBJS)/%.o: $(DIR_OP)/%.c
 	@$(CC) $(FLAGS) -o $@ -c $<
@@ -92,9 +92,11 @@ $(DIR_OBJS)/%.o: $(DIR_ST)/%.c
 
 clean:
 	@rm -f $(OBJ_CH) $(OBJ_PS) $(OBJ_OP) $(OBJ_ST)
+	@make -C $(LIBFT) clean
 
 fclean: clean
 	@rm -f $(NAME_CH) $(NAME_PS)
+	@make -C $(LIBFT) fclean
 
 re: fclean all
 
